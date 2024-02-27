@@ -72,11 +72,11 @@ class BoardController: NSObject,
   // Checkpoint: Correctly implementing this should allow you to change the theme of the goal word! Use breakpoints or print statements
   // to check the before/after value of goalWord and see if it changes to the correct theme
   private func applyThemeSettings(with settings: [String: Any]) {
-      print(goalWord)
-      var newTheme = settings[kWordThemeKey]
-      goalWord = WordGenerator.generateGoalWord(with: newTheme as! WordTheme)
-      print(goalWord)
-      
+      if let newTheme = settings[kWordThemeKey] as? String,
+      let theme = WordTheme(rawValue: newTheme) {
+        goalWord = WordGenerator.generateGoalWord(with: theme)
+      }
+
   }
   
   // Exercise 4: Implement applyIsAlienWordleSettings to change the goal word after each guess
